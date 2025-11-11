@@ -4,5 +4,6 @@ export interface DialogProps{
     disabled ?: boolean;
     onCancel?: () => void;
     onComplete?: () => void;
-    children: React.ReactNode
+    children: React.ReactNode; 
+    variant? : 'light' | 'dark'
 }
