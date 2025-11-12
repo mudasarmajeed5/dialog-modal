@@ -24,7 +24,7 @@ export const Dialog = ({ title, description, onCancel, onComplete, disabled, chi
             description: "#929292",
         }
     const buttleSaveStyle = theme === 'dark' ? "bg-white text-black" : "bg-black text-white"
-    const buttonCancelStyle = theme === "dark" ? 'text-white border': 'text-black border-gray-800'
+    const buttonCancelStyle = theme === "dark" ? 'text-white border': 'text-black border'
     useEffect(() => {
         if (variant) {
             setTheme(variant);
@@ -49,10 +49,10 @@ export const Dialog = ({ title, description, onCancel, onComplete, disabled, chi
                             <svg viewBox="0 0 10 10" width="0.75em" height="0.75em" stroke={`${theme == 'dark' ? 'white':'black'}`} stroke-width="2">
                             <line x1="1" y1="1" x2="9" y2="9" />
                             <line x1="9" y1="1" x2="1" y2="9" />
-                        </svg>
+                            </svg>
                         </span>
                         <span style={{ color: styles.text }} className="text-xl font-semibold">{title}</span>
-                        <span style={{ color: styles.description }} className="text-sm">{description}</span>
+                        <span style={{ color: styles.description }} className="text-sm mb-3">{description}</span>
                     </div>
                     <div className="flex justify-end gap-2">
                         <button onClick={handleClose} className={`px-3 py-1 rounded-md cursor-pointer ${buttonCancelStyle}`}>Cancel</button>
