@@ -24,7 +24,7 @@ export const Dialog = ({ title, description, onCancel, onComplete, disabled, chi
             description: "#929292",
         }
     const buttleSaveStyle = theme === 'dark' ? "bg-white text-black" : "bg-black text-white"
-    const buttonCancelStyle = theme === "dark" ? 'text-white border': 'text-black border'
+    const buttonCancelStyle = theme === "dark" ? 'text-white border' : 'text-black border'
     useEffect(() => {
         if (variant) {
             setTheme(variant);
@@ -45,10 +45,10 @@ export const Dialog = ({ title, description, onCancel, onComplete, disabled, chi
                 <div style={{ background: styles.bg }} className={`p-5 min-w-md absolute top-1/2 left-1/2 rounded-xl inline-block z-50 -translate-x-1/2 transition-all duration-200
                     ${dialogOpen ? 'opacity-100 scale-100 -translate-y-1/2' : 'opacity-0 scale-90 pointer-events-none -translate-y-60'}`}>
                     <div className="flex flex-col gap-2">
-                        <span onClick={()=>setDialogOpen(false)} className="absolute right-3 top-3">
-                            <svg viewBox="0 0 10 10" width="0.75em" height="0.75em" stroke={`${theme == 'dark' ? 'white':'black'}`} stroke-width="2">
-                            <line x1="1" y1="1" x2="9" y2="9" />
-                            <line x1="9" y1="1" x2="1" y2="9" />
+                        <span onClick={() => setDialogOpen(false)} className="absolute right-3 top-3">
+                            <svg viewBox="0 0 10 10" width="0.75em" height="0.75em" stroke={`${theme == 'dark' ? 'white' : 'black'}`} stroke-width="2">
+                                <line x1="1" y1="1" x2="9" y2="9" />
+                                <line x1="9" y1="1" x2="1" y2="9" />
                             </svg>
                         </span>
                         <span style={{ color: styles.text }} className="text-xl font-semibold">{title}</span>

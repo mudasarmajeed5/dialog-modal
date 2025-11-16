@@ -10,7 +10,7 @@ function App() {
       description='Your payment profile will be deleted after the subscrptiption is expired.'
       onCancel={()=>{}}
       onComplete={()=>{}}
-      // variant='dark'
+      variant='dark'
       >
         <button className="px-2 py-1 rounded-md bg-black text-white cursor-pointer">Delete account</button>
       </Dialog>
