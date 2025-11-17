@@ -1,0 +1,117 @@
+.m-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9990;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.m-dialog-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.m-dialog-container {
+  width: 380px;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  transform: translateY(-20px) scale(0.95);
+  transition: all 0.25s ease;
+}
+
+.m-dialog-container.open {
+  transform: translateY(0) scale(1);
+}
+
+/* LIGHT THEME */
+.m-dialog-light {
+  background: white;
+  color: #171717;
+}
+
+.m-dialog-light .m-desc {
+  color: #929292;
+}
+
+/* DARK THEME */
+.m-dialog-dark {
+  background: linear-gradient(145deg, #0a0a0a 0%, #141414 50%, #0a0a0a 100%);
+  color: white;
+}
+
+.m-dialog-dark .m-desc {
+  color: #929292;
+}
+
+/* Header */
+.m-dialog-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Close Icon */
+.m-dialog-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+}
+
+/* Buttons */
+.m-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.m-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.m-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Cancel Button */
+.m-btn-cancel-light {
+  border: 1px solid #171717;
+  color: #171717;
+  background: transparent;
+}
+
+.m-btn-cancel-dark {
+  border: 1px solid white;
+  color: white;
+  background: transparent;
+}
+
+/* Continue Button */
+.m-btn-continue-light {
+  background: black;
+  color: white;
+}
+
+.m-btn-continue-dark {
+  background: white;
+  color: black;
+}
