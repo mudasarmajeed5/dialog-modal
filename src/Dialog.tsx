@@ -3,21 +3,34 @@ import "./dialog.css";
 
 import { type DialogProps } from "./dialog-types";
 
-export const Dialog = ({ title, description, onCancel, onComplete, disabled, children, variant }: DialogProps) => {
-
+export const Dialog = ({ title,
+    description,
+    onCancel,
+    onComplete,
+    children,
+    variant,
+}: DialogProps) => {
     const [theme, setTheme] = useState<"light" | "dark">("light");
     const [open, setOpen] = useState(false);
-
-    const handleClose = () => {
-        setOpen(false);
+    const [loading, setLoading] = useState(false);
+    async function handleComplete() {
+        if (!onComplete) {
+            setOpen(false);
+            return;
+        }
+        setLoading(true)
+        try {
+            await onComplete();
+            setOpen(false);
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+    function handleCancel() {
         onCancel?.();
-    };
-
-    const handleComplete = () => {
         setOpen(false);
-        onComplete?.();
-    };
-
+    }
     useEffect(() => {
         if (variant) {
             setTheme(variant);
@@ -33,14 +46,40 @@ export const Dialog = ({ title, description, onCancel, onComplete, disabled, chi
         setTheme(isDark ? "dark" : "light");
     }, [variant]);
 
+    useEffect(() => {
+        if (variant) return;
+        const media = window.matchMedia('(prefer-color-scheme: dark)');
+        const handler = (e: MediaQueryListEvent ) => {
+            setTheme(e.matches ? "dark": "light"); 
+        }
+        media.addEventListener("change", handler); 
+        return () => {
+            media.removeEventListener("change", handler)
+        }
+    }, [variant])
+    useEffect(() => {
+        if (!open) return;
+        const handleKey = (e: KeyboardEvent) => {
+            if (e.key == "Escape") {
+                setOpen(false);
+            }
+        }
+        window.addEventListener("keydown", handleKey)
+        return () => {
+            window.removeEventListener("keydown", handleKey)
+        }
+    }, [open])
+
     return (
         <>
-            <span onClick={() => setOpen(!open)}>
+            <span onClick={() => setOpen(true)}>
                 {children}
             </span>
 
-            <div className={`m-dialog-overlay ${open ? "open" : ""}`}>
-                <div className={`m-dialog-container ${open ? "open" : ""} ${theme === "dark" ? "m-dialog-dark" : "m-dialog-light"}`}>
+            <div onClick={() => setOpen(false)} className={`m-dialog-overlay ${open ? "open" : ""}`}>
+                <div className={`m-dialog-container ${open ? "open" : ""} ${theme === "dark" ? "m-dialog-dark" : "m-dialog-light"}`}
+                    onClick={(e) => e.stopPropagation()}
+                >
                     <span
                         className="m-dialog-close"
                         onClick={() => setOpen(false)}
@@ -58,18 +97,18 @@ export const Dialog = ({ title, description, onCancel, onComplete, disabled, chi
 
                     <div className="m-dialog-actions">
                         <button
-                            onClick={handleClose}
+                            onClick={handleCancel}
                             className={`m-btn ${theme === "dark" ? "m-btn-cancel-dark" : "m-btn-cancel-light"}`}
                         >
                             Cancel
                         </button>
 
                         <button
-                            disabled={disabled}
+                            disabled={loading}
                             onClick={handleComplete}
-                            className={`m-btn ${theme === "dark" ? "m-btn-continue-dark" : "m-btn-continue-light"}`}
+                            className={`m-btn ${theme === "dark" ? "m-btn-continue-dark" : "m-btn-continue-light"} disabled:opacity-60`}
                         >
-                            Continue
+                            {loading ? "Loading... " : "Continue"}
                         </button>
                     </div>
                 </div>

@@ -1,9 +1,8 @@
 export interface DialogProps{
     title: string;
     description?: string;
-    disabled ?: boolean;
     onCancel?: () => void;
-    onComplete?: () => void;
+    onComplete?: () => void | Promise<void>;
     children: React.ReactNode; 
-    variant? : 'light' | 'dark'
+    variant? : 'light' | 'dark';
 }
