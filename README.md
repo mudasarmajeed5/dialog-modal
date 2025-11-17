@@ -73,3 +73,5 @@ export default defineConfig([
   },
 ])
 ```
+
+Breaking changes for react <=v18.00
